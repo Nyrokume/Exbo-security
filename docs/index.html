@@ -220,37 +220,6 @@
             max-width: 720px;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden;
-            margin-top: 40px;
-        }
-
-        .stat-item {
-            background: var(--bg-card);
-            padding: 20px 24px;
-            text-align: center;
-        }
-
-        .stat-label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--text-dim);
-            margin-bottom: 8px;
-        }
-
-        .stat-value {
-            font-size: 1.75rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-
         /* Sections */
         section {
             padding: 56px 0;
@@ -946,7 +915,6 @@
             .main { margin-left: 0; }
             .main-inner { padding: 80px 24px 60px; }
             .menu-toggle { display: block; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .factor { grid-template-columns: 1fr; }
             .activity-item { grid-template-columns: 1fr; }
             .calculator { padding: 24px; }
@@ -992,16 +960,6 @@
                     <div class="hero-badge">Технический отчёт · v1.0</div>
                     <h1>Восстановление доступа к аккаунту EXBO</h1>
                     <p class="hero-sub">Исследование многофакторной системы верификации владельцев аккаунтов лаунчера Stalcraft — от HWID и сессионных токенов до кассовых чеков и истории привязок.</p>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-label">Факторов</div>
-                            <div class="stat-value">5</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Разделов</div>
-                            <div class="stat-value">6</div>
-                        </div>
-                    </div>
                 </header>
 
                 <main>
