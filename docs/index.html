@@ -2536,166 +2536,128 @@ start=true</pre>
             <div class="section-head"><span class="section-num">05</span><h2>Калькулятор шанса восстановления</h2></div>
 
             <div class="calculator">
-                <div class="calculator-title">Расчёт вероятности восстановления аккаунта</div>
                 <p class="calculator-subtitle">
-                    Отметьте все факторы, которые совпадают с данными вашего аккаунта
+                    Отметьте, что относится к вашей ситуации. Оценка качественная — без точных процентов.
                 </p>
 
-                <!-- Основные факторы -->
                 <div class="calculator-section">
-                    <div class="calculator-section-title">Основные факторы верификации</div>
+                    <div class="calculator-section-title">Оборудование и игра на аккаунте</div>
                     <div class="calculator-grid">
                         <div class="calculator-item">
-                            <label for="hwid">HWID совпадает с оригинальным</label>
+                            <label for="hwid">Тот же компьютер, с которого обычно входили</label>
                             <select id="hwid" onchange="calculate()">
-                                <option value="40">Да, то же самое оборудование</option>
-                                <option value="0">Нет, компьютер изменился</option>
+                                <option value="" selected disabled>Выберите вариант</option>
+                                <option value="40">Да, тот же ПК</option>
+                                <option value="0">Нет, компьютер менялся или новый</option>
                             </select>
-                            <span class="calculator-item-note">Наиболее критичный фактор</span>
+                            <span class="calculator-item-note">Главный технический фактор — HWID устройства</span>
                         </div>
 
                         <div class="calculator-item">
-                            <label for="session">Сессионный токен доступен</label>
-                            <select id="session" onchange="calculate()">
-                                <option value="25">Да, есть в реестре/лаунчере</option>
-                                <option value="0">Нет, истёк или удалён</option>
+                            <label for="played">Играли на этом аккаунте с этого компьютера</label>
+                            <select id="played" onchange="calculate()">
+                                <option value="" selected disabled>Выберите вариант</option>
+                                <option value="25">Да, регулярно заходил(а) и играл(а)</option>
+                                <option value="0">Нет или заходил(а) с другого ПК</option>
                             </select>
-                            <span class="calculator-item-note">Сохранён после последнего входа</span>
+                            <span class="calculator-item-note">Подтверждает привычный вход через лаунчер</span>
                         </div>
 
                         <div class="calculator-item">
-                            <label for="password">Пароль известен</label>
-                            <select id="password" onchange="calculate()">
-                                <option value="20">Да, помню пароль</option>
-                                <option value="0">Нет, пароль утерян</option>
+                            <label for="knowledge">Помните данные аккаунта</label>
+                            <select id="knowledge" onchange="calculate()">
+                                <option value="" selected disabled>Выберите вариант</option>
+                                <option value="20">Да: логин, ники, даты смены почты или пароля</option>
+                                <option value="0">Помню мало или ничего из истории</option>
                             </select>
-                            <span class="calculator-item-note">Точный пароль от аккаунта</span>
-                        </div>
-
-                        <div class="calculator-item">
-                            <label for="bootstrap">Bootstrap.jar не изменялся</label>
-                            <select id="bootstrap" onchange="calculate()">
-                                <option value="10">Да, лаунчер не обновлялся</option>
-                                <option value="0">Нет, было обновление/переустановка</option>
-                            </select>
-                            <span class="calculator-item-note">Хеш файла загрузчика</span>
+                            <span class="calculator-item-note">Сверяют с журналом веб-клиента EXBO</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Финансовые доказательства -->
                 <div class="calculator-section">
-                    <div class="calculator-section-title">Финансовые доказательства</div>
+                    <div class="calculator-section-title">Чеки и платежи</div>
                     <div class="calculator-grid">
                         <div class="calculator-item">
-                            <label>Есть кассовый чек с покупкой</label>
+                            <label for="receipt">Кассовый чек пополнения</label>
                             <div class="checkbox-label">
                                 <input type="checkbox" id="receipt" onchange="calculate()">
-                                <span>Чек с номером заказа и датой</span>
+                                <span>Есть чек с номером заказа, датой и email покупателя</span>
                             </div>
-                            <span class="calculator-item-note">Фискальные данные чека</span>
+                            <span class="calculator-item-note">Сверяют с историей платежей аккаунта</span>
                         </div>
 
                         <div class="calculator-item">
-                            <label>История транзакций в банке</label>
+                            <label for="bank">Выписка или скрин из банка</label>
                             <div class="checkbox-label">
                                 <input type="checkbox" id="bank" onchange="calculate()">
-                                <span>Выписка с карты о платеже EXBO</span>
+                                <span>Есть операция в пользу EXBO с той же суммой и датой</span>
                             </div>
-                            <span class="calculator-item-note">Совпадение суммы и даты</span>
+                            <span class="calculator-item-note">Дополнение к чеку, если фискальных данных нет</span>
                         </div>
 
                         <div class="calculator-item">
-                            <label>Несколько покупок в истории</label>
+                            <label for="multiPurchase">Несколько пополнений за годы</label>
                             <div class="checkbox-label">
                                 <input type="checkbox" id="multiPurchase" onchange="calculate()">
-                                <span>2 и более чека/транзакции</span>
+                                <span>Могу показать 2 и более чека или транзакции</span>
                             </div>
-                            <span class="calculator-item-note">Дополнительная история платежей</span>
+                            <span class="calculator-item-note">Подтверждает длительное владение</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- История активности -->
                 <div class="calculator-section">
-                    <div class="calculator-section-title">История активности</div>
+                    <div class="calculator-section-title">Доступ и привязки</div>
                     <div class="calculator-grid">
                         <div class="calculator-item">
-                            <label>Доступ к истории изменений</label>
-                            <div class="checkbox-label">
-                                <input type="checkbox" id="activityLog" onchange="calculate()">
-                                <span>Можете описать последние изменения</span>
-                            </div>
-                            <span class="calculator-item-note">Знание истории изменений</span>
-                        </div>
-
-                        <div class="calculator-item">
-                            <label>Постоянный IP/город</label>
-                            <div class="checkbox-label">
-                                <input type="checkbox" id="ipHistory" onchange="calculate()">
-                                <span>Входы из одного города/провайдера</span>
-                            </div>
-                            <span class="calculator-item-note">Стабильная геолокация</span>
-                        </div>
-
-                        <div class="calculator-item">
-                            <label>Постоянное устройство</label>
-                            <div class="checkbox-label">
-                                <input type="checkbox" id="deviceHistory" onchange="calculate()">
-                                <span>Входы с одной ОС/браузера</span>
-                            </div>
-                            <span class="calculator-item-note">Постоянное устройство</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Привязки -->
-                <div class="calculator-section">
-                    <div class="calculator-section-title">Привязки</div>
-                    <div class="calculator-grid">
-                        <div class="calculator-item">
-                            <label>Доступ к email аккаунта</label>
+                            <label for="email">Привязанная почта</label>
                             <div class="checkbox-label">
                                 <input type="checkbox" id="email" onchange="calculate()">
-                                <span>Можете войти в привязанную почту</span>
+                                <span>Могу войти в email, указанный на аккаунте</span>
                             </div>
-                            <span class="calculator-item-note">Основной канал связи</span>
+                            <span class="calculator-item-note">Основной канал подтверждения</span>
                         </div>
 
                         <div class="calculator-item">
-                            <label>Привязан Google аккаунт</label>
+                            <label for="google">Вход через Google</label>
                             <div class="checkbox-label">
                                 <input type="checkbox" id="google" onchange="calculate()">
-                                <span>Вход через Google доступен</span>
+                                <span>Google привязан и у меня есть доступ</span>
                             </div>
-                            <span class="calculator-item-note">OAuth-верификация</span>
+                            <span class="calculator-item-note">Дополнительный канал верификации</span>
                         </div>
 
                         <div class="calculator-item">
-                            <label>Привязан ВКонтакте</label>
+                            <label for="vk">Вход через ВКонтакте</label>
                             <div class="checkbox-label">
                                 <input type="checkbox" id="vk" onchange="calculate()">
-                                <span>Вход через VK доступен</span>
+                                <span>VK привязан и у меня есть доступ</span>
                             </div>
-                            <span class="calculator-item-note">VK ID верификация</span>
+                            <span class="calculator-item-note">Использовался в старых процедурах поддержки</span>
                         </div>
+                    </div>
+                </div>
 
+                <div class="calculator-section">
+                    <div class="calculator-section-title">История входов</div>
+                    <div class="calculator-grid">
                         <div class="calculator-item">
-                            <label>Есть персонажи в игре</label>
+                            <label for="activity">Изменения в аккаунте</label>
                             <div class="checkbox-label">
-                                <input type="checkbox" id="characters" onchange="calculate()">
-                                <span>Можете назвать никнеймы/локации</span>
+                                <input type="checkbox" id="activity" onchange="calculate()">
+                                <span>Могу назвать, когда меняли почту, пароль или 2FA</span>
                             </div>
-                            <span class="calculator-item-note">Игровая история</span>
+                            <span class="calculator-item-note">Совпадение с журналом активности</span>
                         </div>
 
                         <div class="calculator-item">
-                            <label>IP в том же диапазоне</label>
-                            <select id="ip" onchange="calculate()">
-                                <option value="5">Да, тот же провайдер/город</option>
-                                <option value="0">Нет, другой регион/IP</option>
-                            </select>
-                            <span class="calculator-item-note">Текущий IP адрес</span>
+                            <label for="location">Привычное место входа</label>
+                            <div class="checkbox-label">
+                                <input type="checkbox" id="location" onchange="calculate()">
+                                <span>Обычно заходил(а) из одного города и с одного устройства</span>
+                            </div>
+                            <span class="calculator-item-note">Геолокация и устройство в истории веб-клиента</span>
                         </div>
                     </div>
                 </div>
@@ -2781,28 +2743,27 @@ start=true</pre>
         });
 
 
+        function scoreSelect(id) {
+            const value = document.getElementById(id).value;
+            return value === '' ? 0 : parseInt(value, 10) || 0;
+        }
+
         function calculate() {
             let total = 0;
 
-            // Select values
-            total += parseInt(document.getElementById('hwid').value);
-            total += parseInt(document.getElementById('session').value);
-            total += parseInt(document.getElementById('password').value);
-            total += parseInt(document.getElementById('bootstrap').value);
-            total += parseInt(document.getElementById('ip').value);
+            total += scoreSelect('hwid');
+            total += scoreSelect('played');
+            total += scoreSelect('knowledge');
 
-            // Checkbox values
             const checkboxes = {
-                'receipt': 12,
-                'bank': 8,
-                'multiPurchase': 5,
-                'activityLog': 6,
-                'ipHistory': 5,
-                'deviceHistory': 4,
-                'email': 10,
-                'google': 8,
-                'vk': 8,
-                'characters': 5
+                receipt: 12,
+                bank: 8,
+                multiPurchase: 5,
+                email: 10,
+                google: 8,
+                vk: 8,
+                activity: 6,
+                location: 9
             };
 
             for (const [id, value] of Object.entries(checkboxes)) {
@@ -2811,32 +2772,33 @@ start=true</pre>
                 }
             }
 
-            // Cap at 100
             if (total > 100) total = 100;
 
-            // Update display (internal score only — no public percentages)
             const levelElement = document.getElementById('resultLevel');
             const barElement = document.getElementById('resultBar');
             const textElement = document.getElementById('resultText');
+            const hasInput = total > 0 ||
+                ['hwid', 'played', 'knowledge'].some(id => document.getElementById(id).value !== '');
 
             barElement.style.width = total + '%';
 
             if (total >= 75) {
                 levelElement.textContent = 'Высокая';
-                textElement.textContent = 'Совокупность факторов выглядит убедительно. Обратитесь в поддержку с собранными доказательствами.';
+                textElement.textContent = 'Позиция выглядит убедительно. Подайте заявку в поддержку и приложите собранные доказательства на complaints@exbo.ru при необходимости апелляции.';
                 textElement.style.opacity = '1';
             } else if (total >= 50) {
                 levelElement.textContent = 'Средняя';
-                textElement.textContent = 'Рекомендуется предоставить дополнительные доказательства: кассовые чеки, банковские выписки, доступ к соц. сетям и email.';
+                textElement.textContent = 'Есть основания, но лучше добавить чеки, выписку, доступ к почте или привязкам перед обращением.';
                 textElement.style.opacity = '1';
-            } else if (total > 0) {
+            } else if (hasInput) {
                 levelElement.textContent = 'Низкая';
-                textElement.textContent = 'Без совпадения HWID восстановление крайне затруднено. Соберите максимум доказательств: чеки, выписки, доступ к почте и соц. сетям, историю активности.';
+                textElement.textContent = 'Без совпадения по компьютеру и игре с этого ПК восстановление затруднено. Соберите максимум доказательств: чеки, почту, привязки, точные даты из истории аккаунта.';
                 textElement.style.opacity = '1';
             } else {
                 levelElement.textContent = '—';
                 textElement.textContent = 'Выберите параметры выше для оценки';
                 textElement.style.opacity = '0.7';
+                barElement.style.width = '0%';
             }
         }
 
