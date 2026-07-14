@@ -741,40 +741,136 @@
 
         .calculator-item select {
             width: 100%;
-            padding: 10px 12px;
+            appearance: none;
+            -webkit-appearance: none;
+            padding: 11px 40px 11px 14px;
             font-size: 0.82rem;
-            background: var(--bg-elevated);
+            background-color: var(--bg-elevated);
+            background-image:
+                linear-gradient(45deg, transparent 50%, var(--accent) 50%),
+                linear-gradient(135deg, var(--accent) 50%, transparent 50%);
+            background-position:
+                calc(100% - 18px) calc(50% - 2px),
+                calc(100% - 12px) calc(50% - 2px);
+            background-size: 6px 6px, 6px 6px;
+            background-repeat: no-repeat;
             color: var(--text);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             cursor: pointer;
             font-family: var(--mono);
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+            transition: border-color 0.15s, box-shadow 0.15s, background-color 0.15s;
+        }
+
+        .calculator-item select:hover {
+            border-color: var(--border-light);
+            background-color: #0a1522;
         }
 
         .calculator-item select:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 0 1px rgba(108, 198, 255, 0.25);
+            box-shadow: 0 0 0 1px rgba(108, 198, 255, 0.25), 0 0 18px rgba(108, 198, 255, 0.12);
         }
 
-        .calculator-item input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            margin-right: 10px;
-            cursor: pointer;
-            accent-color: var(--accent);
+        .calculator-item select option {
+            background: #07101a;
+            color: var(--text);
         }
 
         .checkbox-label {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            gap: 12px;
             cursor: pointer;
-            padding: 10px 12px;
+            padding: 12px 14px;
             background: var(--bg-elevated);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             font-size: 0.82rem;
             color: var(--text-muted);
+            transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+        }
+
+        .checkbox-label:hover {
+            border-color: var(--border-light);
+            color: var(--text);
+            background: #0a1522;
+        }
+
+        .checkbox-label:has(input:checked) {
+            border-color: var(--accent);
+            background: var(--accent-dim);
+            color: var(--text);
+            box-shadow: 0 0 16px rgba(108, 198, 255, 0.08);
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            margin: 1px 0 0;
+            flex-shrink: 0;
+            cursor: pointer;
+            border: 1px solid var(--border-light);
+            background: var(--bg);
+            border-radius: 0;
+            position: relative;
+            transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+        }
+
+        .checkbox-label input[type="checkbox"]:hover {
+            border-color: var(--accent);
+        }
+
+        .checkbox-label input[type="checkbox"]:checked {
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 0 12px rgba(108, 198, 255, 0.45);
+        }
+
+        .checkbox-label input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 5px;
+            height: 9px;
+            border: solid #04070b;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-label input[type="checkbox"]:focus-visible {
+            outline: 1px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .checkbox-label span {
+            line-height: 1.45;
+            padding-top: 1px;
+        }
+
+        /* Also style selects/inputs inside accordion mock forms */
+        .details-content input[type="text"],
+        .details-content input[type="email"],
+        .details-content select,
+        .details-content textarea {
+            appearance: none;
+            -webkit-appearance: none;
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .details-content input:focus,
+        .details-content select:focus,
+        .details-content textarea:focus {
+            outline: none;
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 0 1px rgba(108, 198, 255, 0.25);
         }
 
         .calculator-item-note {
@@ -1098,17 +1194,10 @@
         <section id="section-support-form">
             <div class="section-head"><span class="section-num">02</span><h2>Процесс подачи заявки в поддержку</h2></div>
 
-            <div class="content-block">
-                <div class="content-block-title">Эволюция требований службы поддержки EXBO</div>
-                <p class="content-block-text">
-                    Требования службы поддержки EXBO к верификации владельца аккаунта менялись с 2021 по 2026 год.
-                    Ниже представлена хронология изменений в процедурах восстановления доступа.
-                </p>
-            </div>
-
-            <h4>Эволюция процедур по годам</h4>
-            <p class="content-block-text" style="margin-bottom: 20px; color: var(--gray);">
-                Нажмите на год, чтобы просмотреть процедуру восстановления того периода:
+            <p class="section-lead">
+                Требования службы поддержки EXBO к верификации владельца аккаунта менялись всё время —
+                начиная с релиза проекта и до текущего периода. Ниже — хронология процедур восстановления
+                доступа с 2021&nbsp;г.
             </p>
 
             <details>
@@ -1208,131 +1297,29 @@
             </details>
 
             <details>
-                <summary>2023 год — Стандартная процедура</summary>
+                <summary>2023–2026 — Текущая процедура (exbo.support / отдел игровой безопасности)</summary>
                 <div class="details-content">
-                    <p class="content-block-text"><strong>Тип обращения:</strong> Смена электронной почты</p>
-                    <p class="content-block-text"><strong>Требования:</strong></p>
-                    <ol style="margin-left: 25px; font-size: 1.05rem; line-height: 2;">
-                        <li>Создайте новый аккаунт EXBO;</li>
-                        <li>Авторизуйтесь на exbo.ru;</li>
-                        <li>Привяжите VK;</li>
-                        <li>Запустите лаунчер и STALCRAFT;</li>
-                        <li>Создайте персонажа и зайдите на сервер;</li>
-                        <li>Заполните форму обращения.</li>
-                    </ol>
-                    <p class="content-block-text" style="margin-top: 15px;"><strong>Форма (3 поля):</strong></p>
-                    <div style="background: var(--white); padding: 20px; border: 1px solid var(--gray); margin-top: 15px;">
-                        <div style="margin-bottom: 15px;">
-                            <label style="display: block; font-weight: 600; margin-bottom: 5px;">1. Логин старого аккаунта:</label>
-                            <input type="text" value="CyberStorm77" readonly style="width: 100%; padding: 10px; background: var(--gray-light); border: 1px solid var(--gray);">
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <label style="display: block; font-weight: 600; margin-bottom: 5px;">2. Логин нового аккаунта:</label>
-                            <input type="text" value="CyberStorm77New" readonly style="width: 100%; padding: 10px; background: var(--gray-light); border: 1px solid var(--gray);">
-                        </div>
-                        <div>
-                            <label style="display: block; font-weight: 600; margin-bottom: 5px;">3. Новая почта:</label>
-                            <input type="email" value="cyberstorm.new@proton.me" readonly style="width: 100%; padding: 10px; background: var(--gray-light); border: 1px solid var(--gray);">
-                        </div>
-                    </div>
-                </div>
-            </details>
-
-            <details>
-                <summary>2023–2026 годы — Текущая процедура (exbo.support / ОИБ)</summary>
-                <div class="details-content">
-                    <div class="info-box" style="border-left-color: var(--black); background: var(--white);">
-                        <div class="info-box-title">Важное изменение с 2024 года</div>
+                    <div class="info-box">
+                        <div class="info-box-title">С 2024 года</div>
                         <p class="info-box-text">
-                            С 2024 года техническая поддержка EXBO <strong>не принимает обращения ВКонтакте</strong>.
-                            Все заявки на восстановление доступа подаются исключительно через официальный портал
-                            <strong>exbo.support</strong>. До 2024 года обращения принимались через Вк
+                            Обращения ВКонтакте больше не принимают. Заявки на восстановление доступа подают
+                            только через <strong>exbo.support</strong>; проверку ведёт <strong>отдел игровой безопасности</strong>.
                         </p>
                     </div>
-                    <p class="content-block-text"><strong>Тип обращения:</strong> Смена электронной почты / Восстановление доступа</p>
-                    <p class="content-block-text"><strong>Канал обращения:</strong> Портал exbo.support (2024–2026) / ОИБ (2023)</p>
-                    <p class="content-block-text"><strong>Требования:</strong></p>
+                    <p class="content-block-text"><strong>Тип:</strong> смена почты / восстановление доступа</p>
+                    <p class="content-block-text"><strong>Канал:</strong> до 2024 — в том числе через поддержку во ВКонтакте; с 2024 — только exbo.support</p>
+                    <p class="content-block-text"><strong>После создания тикета обычно просят:</strong></p>
                     <ol style="margin-left: 25px; font-size: 1.05rem; line-height: 2;">
-                        <li>Создайте новый аккаунт EXBO;</li>
-                        <li>Авторизуйтесь в лаунчере / на exbo.ru;</li>
-                        <li>Запустите STALCRAFT / STALCRAFT: X;</li>
-                        <li>Создайте персонажа и пройдите обучение до локации «Болота»;</li>
-                        <li>Предоставьте данные нового аккаунта в ответе на обращение.</li>
+                        <li>создать новый аккаунт EXBO (без «_» и «-» в логине);</li>
+                        <li>авторизоваться в лаунчере;</li>
+                        <li>запустить STALCRAFT / STALCRAFT: X;</li>
+                        <li>создать персонажа и пройти обучение до «Болот»;</li>
+                        <li>отправить в тикет логины, имя персонажа и новую почту.</li>
                     </ol>
-                    <p class="content-block-text" style="margin-top: 15px;"><strong>Важно:</strong> Не использовать «_» и «-» в логине. Только буквы и цифры.</p>
-                </div>
-            </details>
-
-            <details>
-                <summary>Форма создания обращения на exbo.support (2024–2026)</summary>
-                <div class="details-content">
-                    <p class="content-block-text"><strong>Шаг 1: Выбор категории обращения</strong></p>
-                    <div style="background: var(--white); padding: 20px; border: 1px solid var(--gray); margin-top: 15px;">
-                        <div style="margin-bottom: 15px;">
-                            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Учётная запись «EXBO»</label>
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Выбор категории обращения:*</label>
-                            <select disabled style="width: 100%; padding: 10px; background: var(--gray-light); border: 1px solid var(--gray);">
-                                <option>Учётная запись «EXBO»</option>
-                            </select>
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Выбор характера обращения:*</label>
-                            <select disabled style="width: 100%; padding: 10px; background: var(--gray-light); border: 1px solid var(--gray);">
-                                <option>Утеряна электронная почта</option>
-                            </select>
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Тема обращения:*</label>
-                            <input type="text" placeholder="Опишите возникшую проблему в нескольких словах" style="width: 100%; padding: 10px; background: var(--gray-light); border: 1px solid var(--gray);">
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Платформа, которую Вы используете для игры:*</label>
-                            <select disabled style="width: 100%; padding: 10px; background: var(--gray-light); border: 1px solid var(--gray);">
-                                <option>EXBO</option>
-                                <option>Steam</option>
-                                <option>VkPlay</option>
-                                <option>4game</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Логин учётной записи «EXBO»:*</label>
-                            <input type="text" value="ExampleUser2024" readonly style="width: 100%; padding: 10px; background: var(--gray-light); border: 1px solid var(--gray);">
-                        </div>
-                    </div>
-                    <p class="content-block-text" style="margin-top: 15px;"><strong>Шаг 2: Описание проблемы</strong></p>
-                    <div style="background: var(--white); padding: 20px; border: 1px solid var(--gray); margin-top: 15px;">
-                        <label style="display: block; font-weight: 600; margin-bottom: 5px;">Текст обращения:*</label>
-                        <textarea readonly rows="5" style="width: 100%; padding: 10px; background: var(--gray-light); border: 1px solid var(--gray); font-family: inherit; font-size: 1rem;">Прошу сменить электронную почту на моём аккаунте. Имею доступ к старым чекам пополнения.</textarea>
-                    </div>
-                    <p class="content-block-text" style="margin-top: 15px;"><strong>Шаг 3: Прикрепление файлов (необязательно)</strong></p>
-                    <div style="background: var(--white); padding: 20px; border: 1px solid var(--gray); margin-top: 15px;">
-                        <label style="display: block; font-weight: 600; margin-bottom: 5px;">Скриншоты / Документы:</label>
-                        <div style="font-size: 0.95rem; color: var(--gray); padding: 15px; background: var(--gray-light); border: 1px dashed var(--gray);">
-                            📎 screenshot_account_info.png (245 KB)<br>
-                            📎 old_purchase_proof.png (189 KB)
-                        </div>
-                        <p style="margin-top: 10px; font-size: 0.9rem; color: var(--gray);">
-                            <strong>Примечание:</strong> Прикрепление файлов необязательно. Кассовые чеки больше не являются основным требованием для восстановления доступа.
-                        </p>
-                    </div>
-                </div>
-            </details>
-
-            <details>
-                <summary>Требования после создания обращения</summary>
-                <div class="details-content">
-                    <p class="content-block-text"><strong>После подачи заявки поддержка может запросить:</strong></p>
-                    <ol style="margin-left: 25px; font-size: 1.05rem; line-height: 2;">
-                        <li>Создать новый аккаунт EXBO;</li>
-                        <li>Авторизоваться на exbo.ru;</li>
-                        <li>Привязать VK к новому аккаунту;</li>
-                        <li>Запустить лаунчер и STALCRAFT;</li>
-                        <li>Создать персонажа и зайти на сервер;</li>
-                        <li>Пройти обучение до локации «Болота»;</li>
-                        <li>Предоставить данные нового аккаунта в ответе на обращение.</li>
-                    </ol>
+                    <p class="content-block-text" style="margin-top: 15px;">
+                        <strong>Поля формы на exbo.support:</strong> категория («Учётная запись EXBO»), характер
+                        («Утеряна электронная почта»), тема, платформа, логин, текст обращения; вложения необязательны.
+                    </p>
                 </div>
             </details>
 
@@ -1344,7 +1331,7 @@
                         <p class="content-block-text"><strong>Дата:</strong> 18.10.2024 13:31:50</p>
                         <p class="content-block-text"><strong>Тикет:</strong> #404337</p>
                         <p class="content-block-text"><strong>Статус:</strong> Требуется код подтверждения</p>
-                        <p class="content-block-text"><strong>Канал:</strong> exbo.support (не VK!)</p>
+                        <p class="content-block-text"><strong>Канал:</strong> exbo.support</p>
                         <hr style="border: none; border-top: 1px solid var(--gray); margin: 15px 0;">
                         <p class="content-block-text"><strong>Данные из формы:</strong></p>
                         <div style="background: var(--white); padding: 20px; border: 1px solid var(--gray); margin-top: 15px;">
@@ -1420,29 +1407,38 @@
             <h4>Варианты ответов поддержки</h4>
 
             <details>
-                <summary>Отказ в смене почты</summary>
+                <summary>Отказ — не подтверждено владение или допущено нарушение</summary>
                 <div class="details-content">
-                    <div style="background: var(--gray-light); padding: 20px; border-left: 4px solid var(--black); margin-top: 15px;">
-                        <p style="font-size: 0.95rem; line-height: 1.8;">
-                            <strong>Здравствуйте!</strong><br><br>
+                    <div style="background: var(--bg-elevated); padding: 20px; border-left: 3px solid var(--border-light); margin-top: 8px;">
+                        <p style="font-size: 0.95rem; line-height: 1.8; color: var(--text-muted);">
+                            <strong style="color: var(--text);">Здравствуйте!</strong><br><br>
                             Сообщаем, что в смене электронной почты на учётной записи «EXBO» отказано.<br><br>
-                            Результаты внутренней проверки показали, что Вы не являетесь владельцем учётной записи, которая указана в форме.<br><br>
+                            Результаты внутренней проверки показали, что вы не являетесь владельцем учётной записи,
+                            которая указана в форме.<br><br>
                             Напоминаем, что владельцем учётной записи признаётся то лицо, которое её зарегистрировало.<br><br>
-                            В случае получения данных от чужой учётной записи, независимо от способа, будь то передача, дарение или покупка, право владения ею остаётся исключительно за пользователем, который её зарегистрировал.<br><br>
-                            В соответствии с пунктом 4.1.2 действующего лицензионного соглашения Вы не вправе использовать учётную запись другого пользователя.<br><br>
-                            <strong>Пункт 4.1.2 лицензионного соглашения:</strong><br>
+                            В случае получения данных от чужой учётной записи, независимо от способа, будь то передача,
+                            дарение или покупка, право владения ею остаётся исключительно за пользователем,
+                            который её зарегистрировал.<br><br>
+                            В соответствии с пунктом 4.1.2 действующего лицензионного соглашения вы не вправе
+                            использовать учётную запись другого пользователя.<br><br>
+                            <strong style="color: var(--text);">Пункт 4.1.2 лицензионного соглашения имеет следующую трактовку:</strong><br><br>
                             <em>4.1. Пользователь не вправе осуществлять следующие действия в отношении Игры:</em><br>
-                            <em>4.1.2. Получать доступ к Учётным Записям (Аккаунтам) Пользователей независимо от причины, а также каким-либо образом предоставлять доступ другому Пользователю к своей Учётной Записи (Аккаунту) на время или на неограниченный срок, включая, но не ограничиваясь, их обмен, продажу и передачу.</em><br><br>
+                            <em>4.1.2. Получать доступ к Учётным Записям (Аккаунтам) Пользователей независимо от причины,
+                            а также каким-либо образом предоставлять доступ другому Пользователю к своей Учётной Записи
+                            (Аккаунту) на время или на неограниченный срок, включая, но не ограничиваясь, их обмен,
+                            продажу и передачу.</em><br><br>
+                            Ознакомиться с лицензионным соглашением можно тут:
+                            <a href="https://exbo.net/legal/ru_steam_licence.pdf" target="_blank" rel="noopener">документ</a>.<br><br>
                             С уважением,<br>
                             Отдел Игровой Безопасности.
                         </p>
                     </div>
                     <div class="info-box" style="margin-top: 15px;">
-                        <div class="info-box-title">Причины отказа</div>
+                        <div class="info-box-title">Суть отказа</div>
                         <p class="info-box-text">
-                            <strong>Критические факторы (отказ при несовпадении):</strong> HWID не совпадает с зарегистрированным, оригинальная электронная почта недоступна.<br><br>
-                            <strong>Дополнительные факторы:</strong> расхождение данных о первых пополнениях (чеки не предоставлены или не совпадают), невозможность назвать точные даты создания аккаунта, провал верификации (код из внутриигровой почты не отправлен или неверный), отсутствие персонажей в истории аккаунта.<br><br>
-                            <strong>Результат:</strong> при недостаточном совпадении профиля — отказ в восстановлении доступа.
+                            Не подтвердили владение, сочли аккаунт полученным от другого лица
+                            либо обнаружили нарушение лицензионного соглашения (п.&nbsp;4.1.2) —
+                            передача, обмен, продажа. Смену почты в таких случаях не одобряют.
                         </p>
                     </div>
                 </div>
@@ -2683,28 +2679,28 @@ start=true</pre>
                     <div class="calculator-grid">
                         <div class="calculator-item">
                             <label for="receipt">Кассовый чек пополнения</label>
-                            <div class="checkbox-label">
+                            <label class="checkbox-label">
                                 <input type="checkbox" id="receipt" onchange="calculate()">
                                 <span>Есть чек с номером заказа, датой и email покупателя</span>
-                            </div>
+                            </label>
                             <span class="calculator-item-note">Сверяют с историей платежей аккаунта</span>
                         </div>
 
                         <div class="calculator-item">
                             <label for="bank">Выписка или скрин из банка</label>
-                            <div class="checkbox-label">
+                            <label class="checkbox-label">
                                 <input type="checkbox" id="bank" onchange="calculate()">
                                 <span>Есть операция в пользу EXBO с той же суммой и датой</span>
-                            </div>
+                            </label>
                             <span class="calculator-item-note">Дополнение к чеку, если фискальных данных нет</span>
                         </div>
 
                         <div class="calculator-item">
                             <label for="multiPurchase">Несколько пополнений за годы</label>
-                            <div class="checkbox-label">
+                            <label class="checkbox-label">
                                 <input type="checkbox" id="multiPurchase" onchange="calculate()">
                                 <span>Могу показать 2 и более чека или транзакции</span>
-                            </div>
+                            </label>
                             <span class="calculator-item-note">Подтверждает длительное владение</span>
                         </div>
                     </div>
@@ -2715,28 +2711,28 @@ start=true</pre>
                     <div class="calculator-grid">
                         <div class="calculator-item">
                             <label for="email">Привязанная почта</label>
-                            <div class="checkbox-label">
+                            <label class="checkbox-label">
                                 <input type="checkbox" id="email" onchange="calculate()">
                                 <span>Могу войти в email, указанный на аккаунте</span>
-                            </div>
+                            </label>
                             <span class="calculator-item-note">Основной канал подтверждения</span>
                         </div>
 
                         <div class="calculator-item">
                             <label for="google">Вход через Google</label>
-                            <div class="checkbox-label">
+                            <label class="checkbox-label">
                                 <input type="checkbox" id="google" onchange="calculate()">
                                 <span>Google привязан и у меня есть доступ</span>
-                            </div>
+                            </label>
                             <span class="calculator-item-note">Дополнительный канал верификации</span>
                         </div>
 
                         <div class="calculator-item">
                             <label for="vk">Вход через ВКонтакте</label>
-                            <div class="checkbox-label">
+                            <label class="checkbox-label">
                                 <input type="checkbox" id="vk" onchange="calculate()">
                                 <span>VK привязан и у меня есть доступ</span>
-                            </div>
+                            </label>
                             <span class="calculator-item-note">Использовался в старых процедурах поддержки</span>
                         </div>
                     </div>
@@ -2747,19 +2743,19 @@ start=true</pre>
                     <div class="calculator-grid">
                         <div class="calculator-item">
                             <label for="activity">Изменения в аккаунте</label>
-                            <div class="checkbox-label">
+                            <label class="checkbox-label">
                                 <input type="checkbox" id="activity" onchange="calculate()">
                                 <span>Могу назвать, когда меняли почту, пароль или 2FA</span>
-                            </div>
+                            </label>
                             <span class="calculator-item-note">Совпадение с журналом активности</span>
                         </div>
 
                         <div class="calculator-item">
                             <label for="location">Привычное место входа</label>
-                            <div class="checkbox-label">
+                            <label class="checkbox-label">
                                 <input type="checkbox" id="location" onchange="calculate()">
                                 <span>Обычно заходил(а) из одного города и с одного устройства</span>
-                            </div>
+                            </label>
                             <span class="calculator-item-note">Геолокация и устройство в истории веб-клиента</span>
                         </div>
                     </div>
